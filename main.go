@@ -38,28 +38,7 @@ func main() {
 			fmt.Printf("%d. %s\n", index+1, option.Message)
 		}
 
-		var choice int
-		for {
-			fmt.Printf("\nChọn 1 trong %d tùy chọn: ", len(menuOptions))
-
-			var input string
-			fmt.Scan(&input)
-
-			trimmedInput := strings.TrimSpace(input)
-
-			parsedChoice, err := strconv.Atoi(trimmedInput)
-			if err != nil {
-				fmt.Println("Lỗi::: Đầu vào không phải là số nguyên, vui lòng nhập lại.")
-				continue
-			}
-
-			if parsedChoice >= 1 && parsedChoice <= len(menuOptions) {
-				choice = parsedChoice
-				break
-			}
-
-			fmt.Println("Lỗi::: Tùy chọn không hợp lệ, vui lòng chọn lại.")
-		}
+		choice := ChoiceOptions()
 
 		ClearScreen()
 		menuOptions[choice-1].Action.Execute()
@@ -83,5 +62,28 @@ func ClearScreen() {
 		cmd := exec.Command("clear") // Linux/Unix/MacOS
 		cmd.Stdout = os.Stdout
 		cmd.Run()
+	}
+}
+
+func ChoiceOptions() int {
+	for {
+		fmt.Printf("\nChọn 1 trong %d tùy chọn: ", len(menuOptions))
+
+		var input string
+		fmt.Scan(&input)
+
+		trimmedInput := strings.TrimSpace(input)
+
+		parsedChoice, err := strconv.Atoi(trimmedInput)
+		if err != nil {
+			fmt.Println("Lỗi::: Đầu vào không phải là số nguyên, vui lòng nhập lại.")
+			continue
+		}
+
+		if parsedChoice >= 1 && parsedChoice <= len(menuOptions) {
+			return parsedChoice
+		}
+
+		fmt.Println("Lỗi::: Tùy chọn không hợp lệ, vui lòng chọn lại.")
 	}
 }
