@@ -5,6 +5,8 @@ import (
 	"os"
 	"os/exec"
 	"runtime"
+	"strconv"
+	"strings"
 
 	"github.com/KhoaDoesTech/ProductManagement/actions"
 )
@@ -39,9 +41,20 @@ func main() {
 		var choice int
 		for {
 			fmt.Printf("\nChọn 1 trong %d tùy chọn: ", len(menuOptions))
-			_, err := fmt.Scan(&choice)
 
-			if err == nil && choice >= 1 && choice <= len(menuOptions) {
+			var input string
+			fmt.Scan(&input)
+
+			trimmedInput := strings.TrimSpace(input)
+
+			parsedChoice, err := strconv.Atoi(trimmedInput)
+			if err != nil {
+				fmt.Println("Lỗi::: Đầu vào không phải là số nguyên, vui lòng nhập lại.")
+				continue
+			}
+
+			if parsedChoice >= 1 && parsedChoice <= len(menuOptions) {
+				choice = parsedChoice
 				break
 			}
 
