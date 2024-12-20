@@ -119,7 +119,6 @@ type InitData struct{}
 func (i InitData) Execute() {
 	storeInstance := store.GetStoreInstance()
 
-	// Tạo danh sách 20 sản phẩm mẫu
 	sampleProducts := []product.Product{
 		*product.NewProduct("P001", "Laptop Dell", 15000000, 5),
 		*product.NewProduct("P002", "Chuột Logitech", 500000, 10),
@@ -143,17 +142,14 @@ func (i InitData) Execute() {
 		*product.NewProduct("P020", "Tai nghe không dây Bose", 8000000, 3),
 	}
 
-	// Danh sách để ghi lỗi
 	var failed []string
 
-	// Thêm sản phẩm vào cửa hàng
 	for _, prod := range sampleProducts {
 		if err := storeInstance.Add(prod); err != nil {
 			failed = append(failed, fmt.Sprintf("Mã %s: %v", prod.Code, err))
 		}
 	}
 
-	// Tổng kết
 	fmt.Println("Dữ liệu mẫu đã được khởi tạo.")
 	if len(failed) > 0 {
 		fmt.Println("Một số sản phẩm không thêm được:")

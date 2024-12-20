@@ -21,10 +21,10 @@ type StoreManager interface {
 	TotalValue() float64
 }
 
+// Design Pattern: Singleton
+
 var instance *Store
 var once sync.Once
-
-// Design Pattern: Singleton
 
 func GetStoreInstance() *Store {
 	once.Do(func() {
@@ -60,14 +60,7 @@ func (s *Store) Display() {
 		return
 	}
 
-	fmt.Println("\nDanh sách sản phẩm:")
-	fmt.Println("+----------+---------------------------+--------------+------------+")
-	fmt.Println("| MÃ SP    | TÊN SẢN PHẨM              | GIÁ (VND)    | SỐ LƯỢNG   |")
-	fmt.Println("+----------+---------------------------+--------------+------------+")
-	for _, prod := range s.Products {
-		fmt.Print(prod)
-	}
-	fmt.Println("+----------+---------------------------+--------------+------------+")
+	printProducts(s.Products)
 }
 
 func DisplayProducts(products []product.Product) {
@@ -76,6 +69,10 @@ func DisplayProducts(products []product.Product) {
 		return
 	}
 
+	printProducts(products)
+}
+
+func printProducts(products []product.Product) {
 	fmt.Println("\nDanh sách sản phẩm:")
 	fmt.Println("+----------+---------------------------+--------------+------------+")
 	fmt.Println("| MÃ SP    | TÊN SẢN PHẨM              | GIÁ (VND)    | SỐ LƯỢNG   |")
