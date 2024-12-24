@@ -70,6 +70,7 @@ func ChoiceOptions() int {
 		fmt.Printf("\nChọn 1 trong %d tùy chọn: ", len(menuOptions))
 
 		var input string
+		// TODO: check error
 		fmt.Scan(&input)
 
 		trimmedInput := strings.TrimSpace(input)

@@ -18,20 +18,25 @@ type Action interface {
 type AddProduct struct{}
 
 func (a AddProduct) Execute() {
-	var code, name string
-	var price float64
-	var quantity int
+	var (
+		code, name string
+		price      float64
+		quantity   int
+	)
 
 	fmt.Print("Nhập mã sản phẩm: ")
+	// TODO: check error
 	fmt.Scan(&code)
 
 	fmt.Print("Nhập tên sản phẩm: ")
+	// TODO: check error
 	fmt.Scan(&name)
 
 	name = strings.TrimSpace(name)
 
 	for {
 		fmt.Print("Nhập giá sản phẩm: ")
+		// TODO: check error
 		fmt.Scan(&price)
 
 		if price < 0 {
@@ -43,6 +48,7 @@ func (a AddProduct) Execute() {
 
 	for {
 		fmt.Print("Nhập số lượng sản phẩm: ")
+		// TODO: check error
 		fmt.Scan(&quantity)
 
 		if quantity < 0 {
@@ -53,9 +59,7 @@ func (a AddProduct) Execute() {
 	}
 
 	prod := product.NewProduct(code, name, price, quantity)
-	err := store.GetStoreInstance().Add(*prod)
-
-	if err != nil {
+	if err := store.GetStoreInstance().Add(*prod); err != nil {
 		fmt.Println("Lỗi:::", err)
 	} else {
 		fmt.Println("Thêm sản phẩm thành công!")
@@ -73,6 +77,7 @@ type SearchProduct struct{}
 func (s SearchProduct) Execute() {
 	var name string
 	fmt.Print("Nhập tên sản phẩm cần tìm: ")
+	// TODO: check error
 	fmt.Scan(&name)
 
 	foundProducts, err := store.GetStoreInstance().Search(name)
@@ -90,6 +95,7 @@ func (s DeleteProduct) Execute() {
 	var code string
 
 	fmt.Print("Nhập mã sản phẩm cần xóa: ")
+	// TODO: check error
 	fmt.Scan(&code)
 
 	err := store.GetStoreInstance().Delete(code)
